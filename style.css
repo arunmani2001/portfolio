@@ -73,8 +73,7 @@ nav ul li a:hover::after{
 /*--------------about------------*/
 #about{
     padding: 80px 0;
-    color: #ababab;
-
+    color: #e6e1e1;
 }
 .row{
     display:flex;
@@ -92,9 +91,8 @@ nav ul li a:hover::after{
     flex-basis: 60%;
 }
 .sub-title{
-    font-size: 60px;
-    font-weight: 600;
-    color: #fff;
+    font-size: 18px;
+    /* font-weight: 300; */
 }
 .tab-titles{
     display: flex;
@@ -156,7 +154,7 @@ nav ul li a:hover::after{
     transition: backgroun 0.5s,transform 0.5s;
 }
 .services-list div i{
-    font-size: 50px;
+    font-size: 20px;
     margin-bottom: 30px;
 }
 .services-list div h2{
