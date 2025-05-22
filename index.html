@@ -14,16 +14,23 @@
     <div id="header">
         <div class="container">
             <nav>
-                
-                <ul id="sidemenu">
-                    <li><a href="#header">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#Certifications">Certifications</a></li>
-                    <li><a href="#Projects">Projects</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    <i class="fa-solid fa-xmark" onclick="closemenu()"></i>
-                </ul>
-                <i class="fa-solid fa-bars" onclick="openmenu()"></i>
+                <div class="nav-wrapper">
+                    <div class="logo">
+                        <a href="#header">Portfolio</a>
+                    </div>
+                    <div class="nav-toggle" onclick="openmenu()">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <ul id="sidemenu">
+                        <li><a href="#header" class="nav-link active">Home</a></li>
+                        <li><a href="#about" class="nav-link">About</a></li>
+                        <li><a href="#Certifications" class="nav-link">Certifications</a></li>
+                        <li><a href="#Projects" class="nav-link">Projects</a></li>
+                        <li><a href="#contact" class="nav-link">Contact</a></li>
+                    </ul>
+                </div>
             </nav>
             <div class="header-text">
                 <p>Full Stack Developer</p>
@@ -218,15 +225,72 @@
     </script>
 
     <script>
-        var sidemenu = document.getElementById("sidemenu");
+        // Navigation functionality
+        const nav = document.querySelector('nav');
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sidemenu = document.getElementById('sidemenu');
 
+        // Scroll effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
         function openmenu() {
-            sidemenu.style.right = "0";
+            sidemenu.classList.add('active');
+            navToggle.classList.add('active');
         }
+
         function closemenu() {
-            sidemenu.style.right = "-200px";
+            sidemenu.classList.remove('active');
+            navToggle.classList.remove('active');
         }
+
+        // Active link highlighting
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+                if (window.innerWidth <= 768) {
+                    closemenu();
+                }
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!sidemenu.contains(e.target) && !navToggle.contains(e.target)) {
+                closemenu();
+            }
+        });
+
+        // Update active link on scroll
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const sections = document.querySelectorAll('section, #header, #about, #Certifications, #Projects, #contact');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= (sectionTop - sectionHeight/3)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
     </script>
+
     <script>
         const scriptURL = 'https://script.google.com/macros/s/AKfycbyBmB3eVcEOLNxYAV1tEB6t9HGYznUGe-S2Xgv0FKDJaog_9ElI9Gb1UH4av8doV319/exec'
         const form = document.forms['submit-to-google-sheet']
